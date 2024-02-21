@@ -1,47 +1,44 @@
-// Importa Express
 const express = require('express');
-
-// Crea una nueva aplicación Express
 const app = express();
-
-// Define el puerto
-const port = 80;
-
-// Ruta que responde con un estado 404
-app.get('/no-encontrado', (req, res) => {
-  // Envía una respuesta con estado 404
-  res.status(404).send('Página no encontrada');
-});
-
-// Ruta que responde con un estado 500 como ejemplo
-app.get('/error-servidor', (req, res) => {
-  // Envía una respuesta con estado 500
-  res.status(500).send('Error interno del servidor');
-});
-
-// Ruta para la página principal con botón de redirección a YouTube
+const port = 3000;
+ 
+// Middleware para servir archivos estáticos (si es necesario)
+app.use(express.static('public'));
+ 
 app.get('/', (req, res) => {
   // HTML que se enviará como respuesta
   const html = `
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Página Principal</title>
+<title>Acceso a Internet</title>
 </head>
 <body>
-<h1>Página principal con estado 200</h1>
-<!-- Botón que al hacer clic redirige a YouTube -->
-<button onclick="window.location.href='https://www.youtube.com';">Ir a YouTube</button>
+<h1>Bienvenido al acceso Wi-Fi</h1>
+<p>Por favor, haz clic en el botón de abajo para acceder a Internet.</p>
+<!-- Botón que al hacer clic lleva a la ruta de autenticación -->
+<form action="/autenticar" method="post">
+<button type="submit">Acceder a Internet</button>
+</form>
 </body>
 </html>
   `;
-
+ 
   // Envía el HTML como respuesta
   res.send(html);
 });
-
+ 
+// Ruta para manejar la autenticación
+app.post('/autenticar', (req, res) => {
+  // Aquí iría la lógica para marcar al usuario como autenticado en el sistema del hotspot.
+  // Esto podría implicar enviar una solicitud a la API del hotspot, establecer una cookie, etc.
+ 
+  // Por ahora, solo redirigimos al usuario a una página de éxito (o directamente a Internet)
+  // Deberías reemplazar esta URL por la del portal de tu hotspot o una página específica
+  res.redirect('https://www.ejemplo.com/pagina-de-exito');
+});
 // Inicia el servidor
 app.listen(port, '0.0.0.0', () => {
   console.log(`Servidor ejecutándose en http://0.0.0.0:${port}`);
