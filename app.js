@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 
 // Define el puerto
-const port = 3000;
+const port = 80;
 
 // Ruta que responde con un estado 404
 app.get('/no-encontrado', (req, res) => {
@@ -43,6 +43,6 @@ app.get('/', (req, res) => {
 });
 
 // Inicia el servidor
-app.listen(port, () => {
-  console.log(`Servidor ejecutándose en http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Servidor ejecutándose en http://0.0.0.0:${port}`);
 });
