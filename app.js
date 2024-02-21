@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 80;
  
 // Middleware para servir archivos estáticos (si es necesario)
 app.use(express.static('public'));
